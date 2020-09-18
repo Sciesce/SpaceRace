@@ -2,6 +2,12 @@
 
 #include "Pain_Ball_GravenProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "UObject/ConstructorHelpers.h"
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "Runtime/Engine/Classes/Engine/World.h"
+#include "Engine/DecalActor.h"
+#include "Components/DecalComponent.h"
 #include "Components/SphereComponent.h"
 
 APain_Ball_GravenProjectile::APain_Ball_GravenProjectile() 
@@ -27,6 +33,15 @@ APain_Ball_GravenProjectile::APain_Ball_GravenProjectile()
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = true;
 
+	SetReplicates(true);
+	SetReplicateMovement(true);
+
+	static ConstructorHelpers::FObjectFinder<UMaterial> Material(TEXT("Material'/Game/Materials/Paintsplatter_Mat.Paintsplatter_Mat'")); //picking material
+	if (Material.Object != NULL) //if material isn't null
+	{
+		DecalMat = (UMaterial*)Material.Object; //set to decal mat
+	}
+
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;
 }
@@ -34,10 +49,25 @@ APain_Ball_GravenProjectile::APain_Ball_GravenProjectile()
 void APain_Ball_GravenProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	// Only add impulse and destroy projectile if we hit a physics
-	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
+	/*if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics())
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 
 		Destroy();
+	}*/
+
+	if ((OtherActor != NULL) && (OtherActor != this)) //if other actors isn't null or itself
+	{
+		if (DecalMat != nullptr) //if decalmat isn't null
+		{
+			auto Decal = UGameplayStatics::SpawnDecalAtLocation(GetWorld(), DecalMat, FVector(UKismetMathLibrary::RandomFloatInRange(20.f, 40.f)), Hit.Location, Hit.Normal.Rotation(), 0.f); //set decal and size
+			auto MatInstance = Decal->CreateDynamicMaterialInstance(); //set mat instance
+			//UGameplayStatics::SpawnDecalAtLocation(GetWorld(), DecalMat, FVector(UKismetMathLibrary::RandomFloatInRange(20.f, 40.f)), Hit.Location, Hit.Normal.Rotation(), 0.f);
+
+			MatInstance->SetScalarParameterValue("Frame", UKismetMathLibrary::RandomIntegerInRange(0, 3)); //getting random texture from spritesheet
+			MatInstance->SetVectorParameterValue("Color", FLinearColor(UKismetMathLibrary::RandomFloatInRange(0.f, 1.f), UKismetMathLibrary::RandomFloatInRange(0.f, 1.f), UKismetMathLibrary::RandomFloatInRange(0.f, 1.f))); //setting color
+
+			Destroy();
+		}
 	}
 }

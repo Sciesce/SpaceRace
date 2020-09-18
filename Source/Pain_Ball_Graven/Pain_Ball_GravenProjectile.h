@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Materials/MaterialInstanceDynamic.h"
 #include "Pain_Ball_GravenProjectile.generated.h"
 
 UCLASS(config=Game)
@@ -21,6 +22,9 @@ class APain_Ball_GravenProjectile : public AActor
 
 public:
 	APain_Ball_GravenProjectile();
+
+	UPROPERTY(EditAnywhere)
+		UMaterial* DecalMat;
 
 	/** called when projectile hits something */
 	UFUNCTION()
