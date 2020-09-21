@@ -18,6 +18,9 @@ DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 APain_Ball_GravenCharacter::APain_Ball_GravenCharacter()
 {
+
+	
+	
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
 
@@ -81,6 +84,10 @@ APain_Ball_GravenCharacter::APain_Ball_GravenCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
+
+	
+
+	Score = 0;
 }
 
 void APain_Ball_GravenCharacter::BeginPlay()
@@ -135,6 +142,12 @@ void APain_Ball_GravenCharacter::SetupPlayerInputComponent(class UInputComponent
 	PlayerInputComponent->BindAxis("TurnRate", this, &APain_Ball_GravenCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &APain_Ball_GravenCharacter::LookUpAtRate);
+}
+
+void APain_Ball_GravenCharacter::UpdateScore(int addScore)
+{
+	Score = Score + addScore;
+	playerWidget->TextUpdate(Score);
 }
 
 void APain_Ball_GravenCharacter::OnFire()

@@ -8,6 +8,7 @@
 #include "Runtime/Engine/Classes/Engine/World.h"
 #include "Engine/DecalActor.h"
 #include "Components/DecalComponent.h"
+#include "ScoreTarget.h"
 #include "Components/SphereComponent.h"
 
 APain_Ball_GravenProjectile::APain_Ball_GravenProjectile() 
@@ -44,6 +45,8 @@ APain_Ball_GravenProjectile::APain_Ball_GravenProjectile()
 
 	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;
+
+	
 }
 
 void APain_Ball_GravenProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -56,16 +59,26 @@ void APain_Ball_GravenProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Ot
 		Destroy();
 	}*/
 
+	AScoreTarget* Target = Cast<AScoreTarget>(OtherActor);
+
 	if ((OtherActor != NULL) && (OtherActor != this)) //if other actors isn't null or itself
 	{
 		if (DecalMat != nullptr) //if decalmat isn't null
 		{
+
+			
 			auto Decal = UGameplayStatics::SpawnDecalAtLocation(GetWorld(), DecalMat, FVector(UKismetMathLibrary::RandomFloatInRange(20.f, 40.f)), Hit.Location, Hit.Normal.Rotation(), 0.f); //set decal and size
 			auto MatInstance = Decal->CreateDynamicMaterialInstance(); //set mat instance
 			//UGameplayStatics::SpawnDecalAtLocation(GetWorld(), DecalMat, FVector(UKismetMathLibrary::RandomFloatInRange(20.f, 40.f)), Hit.Location, Hit.Normal.Rotation(), 0.f);
 
 			MatInstance->SetScalarParameterValue("Frame", UKismetMathLibrary::RandomIntegerInRange(0, 3)); //getting random texture from spritesheet
 			MatInstance->SetVectorParameterValue("Color", FLinearColor(UKismetMathLibrary::RandomFloatInRange(0.f, 1.f), UKismetMathLibrary::RandomFloatInRange(0.f, 1.f), UKismetMathLibrary::RandomFloatInRange(0.f, 1.f))); //setting color
+
+			if (OtherActor == Target)
+			{
+				playerChar = Cast<APain_Ball_GravenCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
+				playerChar->UpdateScore(10);
+			}
 
 			Destroy();
 		}

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "PlayerWidget.h"
 #include "Pain_Ball_GravenCharacter.generated.h"
 
 class UInputComponent;
@@ -79,6 +80,16 @@ public:
 	/** Whether to use motion controller location for aiming. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	uint32 bUsingMotionControllers : 1;
+
+	//creating scoring functionality for UI
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int Score;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UPlayerWidget* playerWidget;
+
+	UFUNCTION()
+		void UpdateScore(int addScore);
 
 protected:
 	

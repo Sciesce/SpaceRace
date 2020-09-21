@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Materials/MaterialInstanceDynamic.h"
+#include "Pain_Ball_GravenCharacter.h"
 #include "Pain_Ball_GravenProjectile.generated.h"
 
 UCLASS(config=Game)
@@ -34,5 +35,10 @@ public:
 	FORCEINLINE class USphereComponent* GetCollisionComp() const { return CollisionComp; }
 	/** Returns ProjectileMovement subobject **/
 	FORCEINLINE class UProjectileMovementComponent* GetProjectileMovement() const { return ProjectileMovement; }
+
+	UPROPERTY(EditAnywhere)
+		APain_Ball_GravenCharacter* playerChar;
+
+	
 };
 
