@@ -20,6 +20,10 @@
 		{
 			"Name": "Graven_Plugin",
 			"Enabled": false
+		},
+		{
+			"Name": "Foo",
+			"Enabled": true
 		}
 	]
 }
