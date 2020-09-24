@@ -24,6 +24,17 @@
 		{
 			"Name": "Foo",
 			"Enabled": true
+		},
+		{
+			"Name": "WhiteboardBP",
+			"Enabled": false
+		},
+		{
+			"Name": "ToonShader",
+			"Enabled": false
 		}
+	],
+	"TargetPlatforms": [
+		"WindowsNoEditor"
 	]
 }

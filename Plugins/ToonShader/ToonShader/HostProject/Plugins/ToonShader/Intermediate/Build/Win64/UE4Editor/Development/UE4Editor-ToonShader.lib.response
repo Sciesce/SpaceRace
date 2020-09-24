@@ -1,0 +1,14 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-ToonShader.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"D:\UE Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\Engine\SharedPCH.Engine.h.obj"
+"F:\ETransfer\School\GAM-415\Pain_Ball_Graven\Plugins\ToonShader\ToonShader\HostProject\Plugins\ToonShader\Intermediate\Build\Win64\UE4Editor\Development\ToonShader\Module.ToonShader.cpp.obj"
+"F:\ETransfer\School\GAM-415\Pain_Ball_Graven\Plugins\ToonShader\ToonShader\HostProject\Plugins\ToonShader\Intermediate\Build\Win64\UE4Editor\Development\ToonShader\Module.ToonShader.gen.cpp.obj"
+"D:\UE Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\ToonShader\PCLaunch.rc.res"
+"D:\UE Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\ModuleVersionResource.rc.inl.res"
+/OUT:"F:\ETransfer\School\GAM-415\Pain_Ball_Graven\Plugins\ToonShader\ToonShader\HostProject\Plugins\ToonShader\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-ToonShader.lib"
