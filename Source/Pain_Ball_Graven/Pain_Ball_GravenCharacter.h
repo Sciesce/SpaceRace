@@ -88,8 +88,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UPlayerWidget* playerWidget;
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 		void UpdateScore(int addScore);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float PlayerHealth;
 
 protected:
 	

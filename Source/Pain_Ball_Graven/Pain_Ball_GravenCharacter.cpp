@@ -85,7 +85,7 @@ APain_Ball_GravenCharacter::APain_Ball_GravenCharacter()
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
 
-	
+	PlayerHealth = 100;
 
 	Score = 0;
 }

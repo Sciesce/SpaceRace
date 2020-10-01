@@ -69,7 +69,19 @@ void APain_Ball_GravenProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Ot
 		if (DecalMat != nullptr) //if decalmat isn't null
 		{
 
-			if (OtherActor != MovingActor)
+			if (OtherActor->ActorHasTag(EnemyTag))
+			{
+				playerChar = Cast<APain_Ball_GravenCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn()); //getting player reference
+				playerChar->UpdateScore(30); //giving more points for shooting enemy ai
+				UGameplayStatics::ApplyDamage(OtherActor, 30.f, GetWorld()->GetFirstPlayerController(), this, Misc); //applying damage to targets w/tag
+			}
+			else if (OtherActor->ActorHasTag(WaterTag))
+			{
+				FVector HitVector(0.f, 0.f, 1);
+				UGameplayStatics::ApplyPointDamage(OtherActor, 100.f, HitVector, Hit, GetWorld()->GetFirstPlayerController(), this, Misc);//(OtherActor, 100.f, HitVector, GetWorld()->GetFirstPlayerController(), this, Misc);
+			}
+			
+			else if (OtherActor != MovingActor)
 			{
 				auto Decal = UGameplayStatics::SpawnDecalAtLocation(GetWorld(), DecalMat, FVector(UKismetMathLibrary::RandomFloatInRange(20.f, 40.f)), Hit.Location, Hit.Normal.Rotation(), 0.f); //set decal and size
 				auto MatInstance = Decal->CreateDynamicMaterialInstance(); //set mat instance
@@ -81,8 +93,8 @@ void APain_Ball_GravenProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* Ot
 
 				if (OtherActor == Target)
 				{
-					playerChar = Cast<APain_Ball_GravenCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn());
-					playerChar->UpdateScore(10);
+					playerChar = Cast<APain_Ball_GravenCharacter>(GetWorld()->GetFirstPlayerController()->GetPawn()); //getting player reference
+					playerChar->UpdateScore(10); //adding 10 points for cube shot
 				}
 			}
 			else

@@ -39,6 +39,15 @@ public:
 	UPROPERTY(EditAnywhere)
 		APain_Ball_GravenCharacter* playerChar;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FName EnemyTag;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		FName WaterTag;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+		TSubclassOf<UDamageType> Misc;
+
 	
 };
 
