@@ -1,0 +1,23 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "Graven_Plugin",
+	"Description": "This creates a Hello World Output to the log",
+	"Category": "Other",
+	"CreatedBy": "Mark_Graven",
+	"CreatedByURL": "",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "Graven_Plugin",
+			"Type": "Developer",
+			"LoadingPhase": "Default"
+		}
+	]
+}
